@@ -1,6 +1,12 @@
 ---
 version: 2
 
+dependencies:
+  pre:
+    - sudo apt-get update
+    - sudo apt-get install python-dev
+    - sudo pip install awsebcli
+
 jobs:
   py3_serverInstall:
     docker:
@@ -176,6 +182,10 @@ jobs:
           name: Deploy roles to Ansible Galaxy
           command: .circleci/galaxy_deploy.sh
           working_directory: girderformindlogger
+    deployment:
+      commands:
+        - bash ./CircleCI_deploy/setup-eb.sh
+        - eb deploy mindlogger-atlas-dev
 
 workflows:
   version: 2
