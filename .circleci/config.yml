@@ -182,7 +182,10 @@ jobs:
           name: Deploy roles to Ansible Galaxy
           command: .circleci/galaxy_deploy.sh
           working_directory: girderformindlogger
+
     deployment:
+      machine: true
+      working_directory: /home/circleci/project  # as $CIRCLE_WORKING_DIRECTORY
       commands:
         - bash ./CircleCI_deploy/setup-eb.sh
         - eb deploy mindlogger-atlas-dev
@@ -195,3 +198,6 @@ workflows:
       - py3_integrationTests:
           requires:
             - py3_serverInstall
+      - deployment:
+          requires:
+            - py3_integrationTests
