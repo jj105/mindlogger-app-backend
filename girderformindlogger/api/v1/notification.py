@@ -349,13 +349,19 @@ class Notification(Resource):
                 query={
                     '_id': {
                         '$in': notification['users']
+                    },
+                    'userId': {
+                        '$exists': True
                     }
                 }
             ))
         ] if len(notification['users']) else [
             profile['userId'] for profile in list(ProfileModel().find(
                 query={
-                    'appletId': notification['applet']
+                    'appletId': notification['applet'],
+                    'userId': {
+                        '$exists': True
+                    }
                 }
             ))
         ]
