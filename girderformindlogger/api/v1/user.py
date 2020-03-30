@@ -737,8 +737,12 @@ class User(Resource):
                         login
                     )
                 )
+            print('device')
+            print(deviceId)
+            print('ok')
 
-            if deviceId:
+            if deviceId and len(deviceId):
+                print('record device')
                 user['deviceId'] = deviceId
                 user['timezone'] = timezone
                 self._model.save(user)

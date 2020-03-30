@@ -324,6 +324,9 @@ class Notification(Resource):
         :params user: User to send the notification to.
         :params user: dict
         """
+        if 'deviceId' not in user or len(user['deviceId']) == 0:
+            return 
+
         notification['dateSend'] = self.user_timezone_time.strftime('%Y/%m/%d')
         message_title = notification['head']
         message_body = notification['content']
